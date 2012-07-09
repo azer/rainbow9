@@ -1,0 +1,98 @@
+/*
+ *      rainbow9
+ *
+ *      Copyright 2007 Azer Koçulu <http://azer.kodfabrik.com>
+ *		Fri Apr 27, 1:47 PM	
+ * 
+ *      This program is free software; you can redistribute it and/or modify
+ *      it under the terms of the GNU General Public License as published by
+ *      the Free Software Foundation; either version 2 of the License, or
+ *      (at your option) any later version.
+ *
+ *      This program is distributed in the hope that it will be useful,
+ *      but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *      GNU General Public License for more details.
+ *
+ *      You should have received a copy of the GNU General Public License
+ *      along with this program; if not, write to the Free Software
+ *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ */
+
+html, body { width:100%; height:100%; margin:0; padding:0; }
+body { background:#eee; }
+fieldset fieldset { border:1px solid #666; margin-bottom:10px }
+#a { z-index:12; position:absolute; width:624px; height:400px; overflow:auto; overflow-y:scroll; background:#fff; border:1px solid #ddd; padding:5px; }
+#row { width:592px; font:11px 'Courier New','Courier 10 Pitch','Dejavu Sans',Tahoma; color:rgb(0,0,255); }
+#arr { width:20px;  float:left; color:rgb(100,0,0); font:10px Tahoma;  }
+#val { width:455px; padding:0 2px 0 2px;  float:left; color:#000; }
+#row input { border:0px; padding:0; margin:0; font:11px 'Courier New','Courier 10 Pitch','Dejavu Sans',Tahoma; color:#000; }
+
+#panel { z-index:11; position:absolute; width:624px; background:#fff; border:1px solid #ddd; border-bottom:0px; padding:5px }
+#panel .left { float:left; width:500px; padding:7px 0 3px 0; font:11px Arial,Sans; color:#111;  }
+#panel .button { margin-right:2px; outline:none; font:10px 'Trebuchet MS',Arial,Sans,Tahoma; color:#222; border:1px solid #ccc; background:#fff; text-decoration:none; padding:2px 3px 2px 3px; letter-spacing:0px; }
+#panel .right { float:left; width:80px; padding:3px 0 3px 0; }
+#panel select { width:110px; font:10px 'Trebuchet MS',Arial,Sans,Tahoma; }
+#panel .msg { display:none; color:#fff; font:11px 'Trebuchet MS',Sans; padding:3px; margin-bottom:5px; text-align:center }
+#panel .msg a { background:#fff; color:#333; padding:0 2px 0 2px; text-decoration:none }
+.form { display:none; padding-bottom:15px }
+
+.form legend { font:12px Verdana; color:#333; }
+.form legend .closer { position:absolute; margin:-4px 571px; padding:0px 5px 2px 5px; background:#fff; border:1px solid #777; color:#ee2222; text-decoration:none }
+.form .input { margin-top:2px; padding:2px; height:20px; margin:0px 3px 0 3px; border:1px solid #bbb; font:11px Arial,Sans; color:#333; width:90px }
+.form label { margin-top:2px; font:11px Arial,Sans; color:#111; }
+.form label i { color:#555; font:10px; }
+#title { position:absolute; z-index:12; font:11px Arial,Sans; color:#222; text-align:center; padding:3px; width:200px; background:#fff; border:1px solid #ddd; border-bottom:0px }
+
+#archive { display:none; position:absolute; z-index:11; width:200px; height:440px; padding:5px; background:#fff; border:1px solid #ddd; }
+#archive legend { font:12px 'Trebuchet MS',Sans; color:#222; margin:3px; text-align:center; }
+#archive fieldset { padding:5px; margin:0px; width:183px; }
+#archive input {  width:175px; border:1px solid #aaa; padding:2px; font:12px Arial,Sans; color:#111; }
+#archive select { z-index:12; border:1px inset #bbb; font:11px Arial,Sans; color:#222; border:1px solid #aaa; }
+#archive button { padding:1px; font-size:10px; margin:2px 2px 2px 0; border:1px outset #bbb; background:#eee; }
+#archive button:active {  border:1px inset #bbb; }
+
+#editor { position:absolute; display:none; z-index:13; width:624px;  background:#fff; border:1px solid #ddd;  }
+#editor .nav { font:11px 'Trebuchet MS', Arial,Sans; color:#444; padding:3px; }
+#editor .nav a { padding:2px 2px 2px 20px; color:#444; text-decoration:none; background-repeat:no-repeat; background-position:2px 2px; outline:none; }
+#editor .nav a:hover { color:#FF006C }
+#editor textarea { width:100%; height:370px; border:0px; border-top:1px solid #ccc; font:12px 'Courier New','Courier 10 Pitch','Dejavu Sans',Tahoma; color:#222; background:rgb(253,253,253); overflow:scroll; }
+#editor .statusbar { padding:2px 0 0 2px;  font:11px Arial,Sans; color:#555; background:rgb(253,253,253); }
+
+#preview { position:absolute; display:none; z-index:14; width:524px;  background:#fafafa; border:1px solid #ddd;  }
+#preview .nav { width:622px; font:11px 'Trebuchet MS', Arial,Sans; color:#444; padding:3px; background:#fff; }
+#preview .nav a { padding:2px 2px 2px 20px; color:#444; text-decoration:none; background-repeat:no-repeat; background-position:2px 1px; outline:none; }
+#preview .nav a:hover { color:#FF006C }
+#preview .nav input { width:250px; font:10px Tahoma,Sans; padding:1px; color:#111; border:1px solid #ccc; }
+#preview iframe { width:622px; height:385px; border:0px; border-top:1px solid #ccc; font:12px 'Courier New','Courier 10 Pitch','Dejavu Sans',Tahoma; color:#222; }
+
+#footer { position:absolute; z-index:14; padding:3px; background:rgb(255,240,150); font:10px Tahoma,Sans; color:#222; border:1px solid rgb(200,190,0);  }
+
+#subnav { position:absolute; z-index:14; width:132px; padding:3px; background:#fff; color:#111; border:1px solid #ddd; border-right:0px }
+#subnav a { display:block; padding:0px 2px 2px 18px; margin-top:3px; color:#222; font:12px 'Trebuchet MS',Sans; text-decoration:none; background-repeat:no-repeat; background-position:left center; outline:none }
+#subnav a:hover { color:rgb(150,50,100); }
+
+#demo { position:absolute; z-index:15;  width:680px; padding:10px; background:#222; text-align:center; color:#fff; }
+#demo h1 { font:36px Arial,Sans; font-weight:bold; letter-spacing:-2px; color:#fff; margin:0px; text-align:left; }
+#demo iframe {  width:640px; height:480px; border:10px solid #444; background:#050505; margin-top:10px; }
+#demo a { color:#ccc; font:12px Tahoma,Sans; }
+#demo a:hover { text-decoration:none }
+
+
+#am {  }
+#am .left { width:200px; float:left; }
+#am .right { width:385px; float:left; margin-left:5px }
+#am .left .selectbox { width:180px; margin:6px 5px 7px 5px; height:210px; padding:0px; }
+#am .right .selectbox { width:275px; height:145px; margin:3px 5px 0 5px; }
+#am .search { width:542px; border:1px solid #aaa; margin-left:5px; font-size:12px; color:#222; padding:2px }
+#am .selectbox { border:1px solid #aaa; padding:3px; overflow-y:scroll; }
+#am .desc { width:275px; height:44px; border:1px solid #aaa; padding:3px; margin:3px 5px 0 5px; overflow-y:scroll; font-size:10px; }
+#am .desc h1 { font-size:14px; margin:0px; }
+#am .desc h2 { font-size:9px; font-weight:normal; margin-top:2px; }
+#am .app { display:block; color:#222; text-decoration:none; padding:4px 4px 4px 22px; background:rgb(240,230,180); border:1px solid rgb(200,190,140); cursor:pointer; margin-bottom:2px }
+#am .app input { position:absolute; margin:-3px 0 0 -20px }
+#am .sapp { display:block; color:#222; text-decoration:none; padding:4px 4px 4px 22px; background:rgb(240,230,80); border:1px solid rgb(200,190,40); cursor:pointer; margin-bottom:2px  }
+#am .sapp input { position:absolute; margin:-3px 0 0 -20px }
+#am .tag { display:block; color:rgb(20,20,0); font:14px Georgia; text-decoration:none; padding:4px; background:rgb(250,250,240); border-bottom:1px solid rgb(240,240,230); cursor:pointer; margin-bottom:1px; }
+#am .stag { display:block; color:rgb(20,20,0); font:14px Georgia; text-decoration:none; padding:4px; color:#fff; background:rgb(150,150,140); border-bottom:1px solid rgb(140,140,130); cursor:pointer; margin-bottom:1px;  }
+#am button {  padding:0px; margin:4px 0 4px 0; }
